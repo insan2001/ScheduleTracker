@@ -60,8 +60,9 @@ class _CompanyScreenState extends State<CompanyScreen> {
         actions: [
           IconButton(
             onPressed: () => popup("Edit title", () {
-              if (_controller.text != "")
+              if (_controller.text != "") {
                 companies[widget.index].name = _controller.text;
+              }
             }),
             icon: Icon(Icons.edit),
           ),
