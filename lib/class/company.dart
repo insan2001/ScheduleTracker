@@ -1,8 +1,22 @@
 import 'dart:async';
 
+class Schedule {
+  final DateTime sTime;
+  final DateTime eTime;
+  final DateTime date;
+
+  Schedule({required this.sTime, required this.eTime, required this.date});
+
+  String toCSV() {
+    return "${sTime}";
+  }
+}
+
 class Company {
   String name;
   double pay;
+  List<int> roundupValues = [0, 15];
+  int roundupIndex;
   bool _isClockedIn = false;
   DateTime? _clockInTime;
   DateTime? _clockOutTime;
@@ -15,6 +29,7 @@ class Company {
   Company({
     required this.name,
     required this.pay,
+    required this.roundupIndex,
     this.onTick,
     this.onStatusChange,
   });
@@ -23,6 +38,8 @@ class Company {
   DateTime? get clockInTime => _clockInTime;
   DateTime? get clockOutTime => _clockOutTime;
   Duration get elapsed => _elapsed;
+
+  toCSV() {}
 
   void toggleClock() {
     if (_isClockedIn) {

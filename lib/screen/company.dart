@@ -62,6 +62,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
             onPressed: () => popup("Edit title", () {
               if (_controller.text != "") {
                 companies[widget.index].name = _controller.text;
+                isChanged = true;
               }
             }),
             icon: Icon(Icons.edit),
@@ -84,8 +85,35 @@ class _CompanyScreenState extends State<CompanyScreen> {
                     return;
                   }
                   companies[widget.index].pay = pay;
+                  isChanged = true;
                 }),
                 icon: Icon(Icons.edit),
+              ),
+            ),
+            ListTile(
+              title: Text("RoundUp time"),
+              trailing: DropdownButton<int>(
+                hint: Text(
+                  company.roundupValues[company.roundupIndex].toString(),
+                ),
+                value: company.roundupValues[company.roundupIndex],
+                items: company.roundupValues
+                    .map(
+                      (int value) => DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString()),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (int? newValue) {
+                  if (newValue == null) return;
+                  setState(() {
+                    company.roundupIndex = company.roundupValues.elementAt(
+                      newValue,
+                    );
+                  });
+                  isChanged = true;
+                },
               ),
             ),
           ],
